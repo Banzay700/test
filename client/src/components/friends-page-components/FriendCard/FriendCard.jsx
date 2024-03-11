@@ -14,6 +14,7 @@ const FriendCard = ({
   onDelete,
   onConfirm,
   onAddFriend,
+  onDontShowClick,
   onClick,
 }) => {
   const [msg, setMsg] = useState('')
@@ -82,12 +83,17 @@ const FriendCard = ({
           </Stack>
         )}
         {!isRequestVariant && (
-          <ButtonMain
-            color={isRequesting ? 'grey' : 'blue'}
-            onClick={(e) => handleClick(e)}
-          >
-            {isRequesting ? 'Cancel request' : 'Add to friends'}
-          </ButtonMain>
+          <Stack gap="8px">
+            <ButtonMain
+              color={isRequesting ? 'grey' : 'blue'}
+              onClick={(e) => handleClick(e)}
+            >
+              {isRequesting ? 'Cancel request' : 'Add to friends'}
+            </ButtonMain>
+            <ButtonMain color="grey" onClick={(e) => onDontShowClick(e, id)}>
+              Dont Show
+            </ButtonMain>
+          </Stack>
         )}
       </CardContentWrapper>
     </CardWrapper>
@@ -102,6 +108,7 @@ FriendCard.propTypes = {
   onDelete: PropTypes.func,
   onClick: PropTypes.func,
   onConfirm: PropTypes.func,
+  onDontShowClick: PropTypes.func,
   onAddFriend: PropTypes.func,
 }
 

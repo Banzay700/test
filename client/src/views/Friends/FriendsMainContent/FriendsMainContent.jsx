@@ -1,5 +1,6 @@
-import { Divider } from '@mui/material'
+import { useLocalStorage } from 'usehooks-ts'
 
+import { Divider } from '@mui/material'
 import { FriendsList } from '../../../components/friends-page-components'
 import {
   useAcceptFriendRequestMutation,
@@ -9,11 +10,17 @@ import {
   useSendFriendRequestMutation,
 } from '../../../store/services/friendService'
 import { useGetUsersQuery } from '../../../store/services/usersService'
-import { MainContentWrapper } from './FriendsMainContent.styled'
 import { useGetSuggestions } from '../../../hooks'
+import { LS_KEYS } from '../../../utils/constants'
+import { MainContentWrapper } from './FriendsMainContent.styled'
 
 const FriendsMainContent = () => {
   const userId = localStorage.getItem('userId')
+  const [hiddenUsersId, setHiddenUsersId] = useLocalStorage(
+    LS_KEYS.HIDDEN_USERS,
+    [],
+  )
+
   const { data: friends } = useGetFriendsListQuery(userId)
   const { data: users, isLoading: isUsersLoading } = useGetUsersQuery()
   const { data: requests, isLoading: isRequestsLoading } =
@@ -38,6 +45,11 @@ const FriendsMainContent = () => {
     declineFriendRequest({ userId: id })
   }
 
+  const handleDontShowUser = (e, id) => {
+    e.stopPropagation()
+    setHiddenUsersId([...hiddenUsersId, id])
+  }
+
   return (
     <MainContentWrapper>
       <FriendsList
@@ -59,6 +71,7 @@ const FriendsMainContent = () => {
         onAddFriend={sendFriendRequest}
         onMessage={handleMessage}
         onDecline={handleDecline}
+        onDontShowClick={handleDontShowUser}
       />
     </MainContentWrapper>
   )

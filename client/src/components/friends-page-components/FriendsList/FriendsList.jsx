@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import { useState } from "react";
+import PropTypes from 'prop-types'
+import { useState } from 'react'
 import {
   Stack,
   Typography,
@@ -7,13 +7,13 @@ import {
   Button,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
+} from '@mui/material'
 import { useNavigate } from 'react-router'
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown } from 'react-icons/io'
 
-import { FriendCard } from "../index";
-import { FriendCardSkeleton } from "../FriendCard/FriendCardSkeleton";
-import { ExpandedWrapper, FriendsListWrapper } from "./FriendsList.styled.js";
+import { FriendCard } from '../index'
+import { FriendCardSkeleton } from '../FriendCard/FriendCardSkeleton'
+import { ExpandedWrapper, FriendsListWrapper } from './FriendsList.styled.js'
 
 const FriendsList = ({
   variant,
@@ -22,32 +22,33 @@ const FriendsList = ({
   link,
   isLoading,
   onDecline,
-  onConfirm, onAddFriend,
-
+  onConfirm,
+  onAddFriend,
+  onDontShowClick,
 }) => {
-  const range = [...Array(5).keys()];
-  const isUsers = users?.length > 0;
-  const { breakpoints } = useTheme();
-  const isMatches = useMediaQuery(breakpoints.up(1200));
-  const navigate = useNavigate();
+  const range = [...Array(5).keys()]
+  const isUsers = users?.length > 0
+  const { breakpoints } = useTheme()
+  const isMatches = useMediaQuery(breakpoints.up(1200))
+  const navigate = useNavigate()
 
-  const isShowButton = users?.length < 4 && isMatches;
+  const isShowButton = users?.length < 4 && isMatches
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false)
 
   const handleExpand = () => {
-    setExpanded(!expanded);
-  };
+    setExpanded(!expanded)
+  }
 
   const handleShowUser = (id) => {
-    if(variant === "requests"){
-      navigate(`/friends/requests?id=${id}`);
+    if (variant === 'requests') {
+      navigate(`/friends/requests?id=${id}`)
     } else {
-      navigate(`/profile/${id}`);
+      navigate(`/profile/${id}`)
     }
   }
 
-  const filteredUsers = users?.slice(0, 10);
+  const filteredUsers = users?.slice(0, 10)
 
   if (isLoading) {
     return (
@@ -70,7 +71,7 @@ const FriendsList = ({
           ))}
         </Stack>
       </FriendsListWrapper>
-    );
+    )
   }
 
   return (
@@ -83,7 +84,7 @@ const FriendsList = ({
           All
         </Link>
       </Stack>
-      <ExpandedWrapper active={expanded ? "expanded" : undefined}>
+      <ExpandedWrapper active={expanded ? 'expanded' : undefined}>
         {isUsers ? (
           filteredUsers?.map(({ id, firstName, lastName, avatarsUrl }) => (
             <FriendCard
@@ -96,6 +97,7 @@ const FriendsList = ({
               onDelete={onDecline}
               onAddFriend={onAddFriend}
               onClick={() => handleShowUser(id)}
+              onDontShowClick={onDontShowClick}
             />
           ))
         ) : (
@@ -107,17 +109,17 @@ const FriendsList = ({
           variant="text"
           endIcon={<IoMdArrowDropdown />}
           onClick={handleExpand}
-          sx={{ marginTop: "12px" }}
+          sx={{ marginTop: '12px' }}
         >
           See more
         </Button>
       )}
     </FriendsListWrapper>
-  );
-};
+  )
+}
 
 FriendsList.propTypes = {
-  variant: PropTypes.oneOf(["friends", "requests"]),
+  variant: PropTypes.oneOf(['friends', 'requests']),
   users: PropTypes.array,
   heading: PropTypes.string,
   link: PropTypes.string,
@@ -125,8 +127,9 @@ FriendsList.propTypes = {
   onDecline: PropTypes.func,
   onConfirm: PropTypes.func,
   onAddFriend: PropTypes.func,
-};
+  onDontShowClick: PropTypes.func,
+}
 
-FriendsList.displayName = "FriendsList";
+FriendsList.displayName = 'FriendsList'
 
-export default FriendsList;
+export default FriendsList

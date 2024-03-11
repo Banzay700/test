@@ -1,11 +1,11 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from '@mui/material'
 
-import { FriendsSidebarItem } from "./FriendsSidebarItem";
-import { sidebarItemsMap } from "./FriendsMainSidebar.utils.jsx";
+import { FriendsSidebarItem } from './FriendsSidebarItem'
+import { sidebarItemsMap } from './FriendsMainSidebar.utils.jsx'
 import {
   SidebarHeaderWrapper,
   SidebarWrapper,
-} from "./FriendsMainSidebar.styled.js";
+} from './FriendsMainSidebar.styled.js'
 
 const FriendsMainSidebar = () => {
   return (
@@ -22,11 +22,11 @@ const FriendsMainSidebar = () => {
           <FriendsSidebarItem key={item.to} {...item} />
         ))}
       </Stack>
-      <Divider orientation="horizontal" sx={{ my: "8px" }} />
+      <Divider orientation="horizontal" sx={{ my: '8px' }} />
     </SidebarWrapper>
-  );
-};
+  )
+}
 
-FriendsMainSidebar.displayName = "FriendsMainSidebar";
+FriendsMainSidebar.displayName = 'FriendsMainSidebar'
 
-export default FriendsMainSidebar;
+export default FriendsMainSidebar

@@ -1,19 +1,21 @@
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
 import { Stack, Typography } from '@mui/material'
+import { useSearchParams } from 'react-router-dom'
 
 import { SubSidebarHeader } from './SubSidebarHeader'
 import { FriendsSidebarUserCard } from '../../friends-page-components'
 import { SidebarSearch } from '../../index'
 import { SidebarItemsList, SidebarWrapper } from './FriendsSubSidebar.styled'
-import { useSearchParams } from 'react-router-dom'
 import {
   useAcceptFriendRequestMutation,
   useDeclineFriendRequestMutation,
   useRemoveFriendMutation,
   useSendFriendRequestMutation,
 } from '../../../store/services/friendService.js'
+import { LS_KEYS } from '../../../utils/constants'
 
 const FriendsSubSidebar = ({
   variant,
@@ -24,6 +26,10 @@ const FriendsSubSidebar = ({
 }) => {
   const [searchValue, setSearchValue] = useState('')
   let [, setSearchParams] = useSearchParams()
+  const [hiddenUsersId, setHiddenUsersId] = useLocalStorage(
+    LS_KEYS.HIDDEN_USERS,
+    [],
+  )
 
   const [acceptFriendRequest] = useAcceptFriendRequestMutation()
   const [declineFriendRequest] = useDeclineFriendRequestMutation()
@@ -69,7 +75,7 @@ const FriendsSubSidebar = ({
 
   const handleHideSuggestion = (id) => {
     console.log(id)
-    // declineFriendRequest({ userId: id })
+    setHiddenUsersId([...hiddenUsersId, id])
   }
 
   return (
