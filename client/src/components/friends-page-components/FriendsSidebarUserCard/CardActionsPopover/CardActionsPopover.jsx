@@ -1,24 +1,28 @@
-import PropTypes from "prop-types";
-import { BiMessageSquareDetail } from "react-icons/bi";
-import { FiUserX } from "react-icons/fi";
-import { useState } from "react";
+import PropTypes from 'prop-types'
+import { BiMessageSquareDetail } from 'react-icons/bi'
+import { FiUserX } from 'react-icons/fi'
+import { useState } from 'react'
 
-import { Popover, Typography, Box } from "@mui/material";
-import { ActionIconButton } from "../../../index";
+import { Popover, Typography, Box } from '@mui/material'
+import { ActionIconButton } from '../../../index'
 import {
   PopoverContentWrapper,
   PopoverItemWrapper,
-} from "./CardActionsPopover.styled";
+} from './CardActionsPopover.styled'
 
 const CardActionsPopover = ({ name, onMessage, onRemove }) => {
-  const [anchorEl, setAnchorEl] = useState();
-  const id = open ? "simple-popover" : undefined;
+  const [anchorEl, setAnchorEl] = useState()
+  const id = open ? 'simple-popover' : undefined
 
   const handleClick = (e) => {
     e.stopPropagation()
-    setAnchorEl(e.currentTarget);}
+    setAnchorEl(e.currentTarget)
+  }
 
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = (e) => {
+    e.stopPropagation()
+    setAnchorEl(null)
+  }
 
   return (
     <Box>
@@ -32,8 +36,8 @@ const CardActionsPopover = ({ name, onMessage, onRemove }) => {
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={handleClose}
-        sx={{ top: "2px" }}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        sx={{ top: '2px' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       >
         <PopoverContentWrapper>
           <PopoverItemWrapper onClick={onMessage}>
@@ -48,15 +52,15 @@ const CardActionsPopover = ({ name, onMessage, onRemove }) => {
         </PopoverContentWrapper>
       </Popover>
     </Box>
-  );
-};
+  )
+}
 
 CardActionsPopover.propTypes = {
   name: PropTypes.string,
   onMessage: PropTypes.func,
   onRemove: PropTypes.func,
-};
+}
 
-CardActionsPopover.displayName = "CardActionsPopover";
+CardActionsPopover.displayName = 'CardActionsPopover'
 
-export default CardActionsPopover;
+export default CardActionsPopover

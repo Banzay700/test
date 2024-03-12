@@ -7,16 +7,16 @@ import { ProfileLayout } from './ProfileLayout'
 import { useDocumentTitle } from 'usehooks-ts'
 
 const ProfilePage = () => {
-  const { id } = useParams();
-  const { isLoading } = useGetProfileByIdQuery(id ?? localStorage.getItem('userId'));
+  const { id } = useParams()
+  const { isLoading } = useGetProfileByIdQuery(
+    id ?? localStorage.getItem('userId'),
+  )
   useDocumentTitle('Profile')
+
   return (
-    <main>
-      {isLoading ? <ProfileSkeleton /> : <ProfileLayout id={id} />}
-    </main>
+    <main>{isLoading ? <ProfileSkeleton /> : <ProfileLayout id={id} />}</main>
   )
 }
 
 const Profile = withLayout(ProfilePage)
 export default Profile
-

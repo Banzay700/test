@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import MediaUpload from '../../../components/modals/MediaUpload'
 import AvatarMenu from '../AvatarMenu'
 import ProfileTabs from '../ProfileTabs'
-import { WhiteButton } from '../../../components/buttons'
+import { ProfileBackButton, WhiteButton } from '../../../components/buttons'
 import FriendRequestButton from '../FriendRequestButton'
 import { EditProfile } from '../../../components/modals/EditProfile'
 
@@ -27,9 +27,11 @@ import { placeholderAvatar } from '../../../data/placeholders'
 import { MdPhotoCamera } from 'react-icons/md'
 import { NotificationSubscriptionBtn } from '../NotificationSubscriptionBtn'
 import styles from '../profile.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const ProfileLayout = ({ id }) => {
   const theme = useTheme()
+  const navigate = useNavigate()
 
   const { data: profile } = useGetProfileByIdQuery(
     id ?? localStorage.getItem('userId'),
@@ -58,10 +60,15 @@ export const ProfileLayout = ({ id }) => {
   }
 
   return (
-    <>
+    <Box>
+      <ProfileBackButton
+        fullName={`${profile?.firstName} ${profile?.lastName}`}
+        onClick={() => navigate(-1)}
+      />
       <Container maxWidth={'lg'}>
         <Box
           sx={{
+            marginTop: '15px',
             borderRadius: '10px',
             position: 'relative',
             overflow: 'clip',
@@ -179,7 +186,7 @@ export const ProfileLayout = ({ id }) => {
           modalTitle="Upload a new banner"
         />
       )}
-    </>
+    </Box>
   )
 }
 

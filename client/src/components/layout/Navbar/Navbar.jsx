@@ -6,15 +6,18 @@ import NotificationButton from './actions/NotificationButton'
 import AvatarButton from './actions/AvatarButton'
 import { MainSearch } from '../../MainSearch'
 import styles from './navbar.module.scss'
-import { Typography } from '@mui/material'
+import { Box, Drawer } from '@mui/material'
 import { useGetUserByNameQuery } from '../../../store/services/searchService'
 import { useState } from 'react'
 import { useDebounce, useMediaQuery } from 'usehooks-ts'
+import { MQ } from '../../../utils/constants/index.js'
+import { ActionIconButton } from '../../index.js'
 
 const Navbar = () => {
-  const isTablet = useMediaQuery('(max-width: 900px)')
+  const isTablet = useMediaQuery(MQ.TABLET)
 
   const [value, setValue] = useState('')
+  const [open, setOpen] = useState(false)
   const debouncedValue = useDebounce(value)
 
   const { data } = useGetUserByNameQuery(
@@ -31,11 +34,6 @@ const Navbar = () => {
   return (
     <header className={styles.header}>
       <MainSearch value={value} searchItems={data} onChange={handleChange} />
-      {/*<Link to="/" style={{ marginLeft: '16px' }}>*/}
-      {/*  <Typography typography={'h1'} fontSize={22} fontWeight={'bold'}>*/}
-      {/*    iSocial*/}
-      {/*  </Typography>*/}
-      {/*</Link>*/}
 
       <nav className={styles.navWrapper}>
         {!isTablet && (
@@ -44,6 +42,16 @@ const Navbar = () => {
           </ul>
         )}
         <ul className={styles.actionList}>
+          {isTablet && (
+            <Box component="li" mr="10px">
+              <ActionIconButton
+                size="24px"
+                icon="burger"
+                variant="iconWithBg"
+                onClick={() => setOpen(!open)}
+              />
+            </Box>
+          )}
           <li>
             <NotificationButton />
           </li>
@@ -57,6 +65,11 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
+      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+        <Box width="100vh" height="100vh">
+          sadasda
+        </Box>
+      </Drawer>
     </header>
   )
 }

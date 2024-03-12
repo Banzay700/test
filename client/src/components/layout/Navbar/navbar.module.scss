@@ -5,11 +5,10 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
   background-color: colors.$white;
   display: flex;
-  // padding-left: 16px;
   align-items: center;
+  z-index: 10000;
   @include common.shadow();
 }
 
@@ -79,6 +78,12 @@
   margin-left: auto;
   @include media(sm) {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .navWrapper {
+    justify-content: flex-end;
   }
 }
 

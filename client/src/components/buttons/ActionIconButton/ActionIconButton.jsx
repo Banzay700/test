@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
-import { Typography, useTheme } from "@mui/material";
-import { BiSolidLike } from "react-icons/bi";
-import { useState } from "react";
+import PropTypes from 'prop-types'
+import { Typography, useTheme } from '@mui/material'
+import { BiSolidLike } from 'react-icons/bi'
+import { useState } from 'react'
 
-import { iconsMap } from "./ActionIconButton.utils.jsx";
-import { ButtonBase } from "./ActionIconButton.styled";
+import { iconsMap } from './ActionIconButton.utils.jsx'
+import { ButtonBase } from './ActionIconButton.styled'
 
 const ActionIconButton = ({
   variant,
@@ -18,21 +18,21 @@ const ActionIconButton = ({
   onClick,
   ...props
 }) => {
-  const [isPressed, setIsPressed] = useState(false);
-  const { palette } = useTheme();
-  const defaultColor = palette.background.colorAction ?? "black";
-  const hasFilledColor = isPressed && filledOnPress;
+  const [isPressed, setIsPressed] = useState(false)
+  const { palette } = useTheme()
+  const defaultColor = palette.background.colorAction ?? 'black'
+  const hasFilledColor = isPressed && filledOnPress
 
-  let buttonColor = color ? color : defaultColor;
+  let buttonColor = color ? color : defaultColor
 
   if (hasFilledColor) {
-    buttonColor = palette.primaryButtonBackground;
+    buttonColor = palette.primaryButtonBackground
   }
 
   const handleClick = (e) => {
-    setIsPressed(!isPressed);
-    onClick?.(e);
-  };
+    setIsPressed(!isPressed)
+    onClick?.(e)
+  }
 
   return (
     <ButtonBase
@@ -48,46 +48,47 @@ const ActionIconButton = ({
       ) : (
         iconsMap(size)[icon]
       )}
-      {variant === "text" && (
+      {variant === 'text' && (
         <Typography color={hasFilledColor && buttonColor}>
           {children}
         </Typography>
       )}
     </ButtonBase>
-  );
-};
+  )
+}
 
 ActionIconButton.propTypes = {
   color: PropTypes.string,
   bg: PropTypes.string,
   size: PropTypes.string,
-  variant: PropTypes.oneOf(["icon", "text", "iconWithBg"]).isRequired,
+  variant: PropTypes.oneOf(['icon', 'text', 'iconWithBg']).isRequired,
   icon: PropTypes.oneOf([
-    "dots",
-    "close",
-    "like",
-    "comment",
-    "share",
-    "settings",
-    "notification",
-    "arrowLeft",
-    "arrowRight",
-    "search",
-    "clock",
+    'dots',
+    'close',
+    'like',
+    'comment',
+    'share',
+    'settings',
+    'notification',
+    'arrowLeft',
+    'arrowRight',
+    'search',
+    'clock',
+    'burger',
   ]),
   filledOnPress: PropTypes.bool,
   withHover: PropTypes.bool,
   children: PropTypes.string,
   onClick: PropTypes.func,
-};
+}
 
 ActionIconButton.defaultProps = {
-  size: "20",
-  variant: "icon",
-  icon: "dots",
+  size: '20',
+  variant: 'icon',
+  icon: 'dots',
   withHover: true,
-};
+}
 
-ActionIconButton.displayName = "ActionIconButton";
+ActionIconButton.displayName = 'ActionIconButton'
 
-export default ActionIconButton;
+export default ActionIconButton
