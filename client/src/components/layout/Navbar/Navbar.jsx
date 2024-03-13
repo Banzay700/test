@@ -6,12 +6,13 @@ import NotificationButton from './actions/NotificationButton'
 import AvatarButton from './actions/AvatarButton'
 import { MainSearch } from '../../MainSearch'
 import styles from './navbar.module.scss'
-import { Box, Drawer } from '@mui/material'
+import { Box } from '@mui/material'
 import { useGetUserByNameQuery } from '../../../store/services/searchService'
 import { useState } from 'react'
 import { useDebounce, useMediaQuery } from 'usehooks-ts'
 import { MQ } from '../../../utils/constants/index.js'
 import { ActionIconButton } from '../../index.js'
+import { HeaderMenu } from './HeaderMenu/index.js'
 
 const Navbar = () => {
   const isTablet = useMediaQuery(MQ.TABLET)
@@ -45,6 +46,7 @@ const Navbar = () => {
           {isTablet && (
             <Box component="li" mr="10px">
               <ActionIconButton
+                bg="#EFEFEF"
                 size="24px"
                 icon="burger"
                 variant="iconWithBg"
@@ -65,11 +67,7 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        <Box width="100vh" height="100vh">
-          sadasda
-        </Box>
-      </Drawer>
+      <HeaderMenu open={open} onClose={() => setOpen(false)} />
     </header>
   )
 }
